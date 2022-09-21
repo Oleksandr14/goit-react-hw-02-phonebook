@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FormContainer, Button, Input, NameLabel } from './Form.styled';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +18,13 @@ export class Form extends Component {
     e.preventDefault();
     const { name, number } = this.state;
     const newContact = { name, number, id: uuidv4() };
-    this.props.onAddContact(newContact);
+
+    if (this.props.namesArray.includes(name)) {
+      alert(`${name} is already in contacts`);
+    } else {
+      this.props.onAddContact(newContact);
+    }
+
     this.reset();
   };
 
@@ -60,3 +67,8 @@ export class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  namesArray: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onAddContact: PropTypes.func.isRequired,
+};

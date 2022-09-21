@@ -24,9 +24,11 @@ export class App extends Component {
     });
   };
 
-  changeFilter = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  deleteContact = id => {
+    const { contacts } = this.state;
+    this.setState({
+      contacts: contacts.filter(contact => contact.id !== id),
+    });
   };
 
   filterContacts = () => {
@@ -37,17 +39,26 @@ export class App extends Component {
     );
   };
 
+  changeFilter = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
   render() {
     const { filter } = this.state;
+    const namesArray = this.state.contacts.map(contact => contact.name);
 
     return (
       <Box p={4}>
         <h1>Phonebook</h1>
-        <Form onAddContact={this.addContact} />
+        <Form onAddContact={this.addContact} namesArray={namesArray} />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChangeFilter={this.changeFilter} />
-        <Contacts contacts={this.filterContacts()} />
+        <Contacts
+          contacts={this.filterContacts()}
+          onDeleteContact={this.deleteContact}
+        />
         <GlobalStyle />
       </Box>
     );
