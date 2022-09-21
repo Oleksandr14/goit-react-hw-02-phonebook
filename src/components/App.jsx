@@ -1,6 +1,6 @@
 import { GlobalStyle } from './GlobalStyle';
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 import { Box } from './Box';
 
 import { Form } from './Form/Form';
@@ -16,26 +16,17 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
-  handleChange = e => {
+  addContact = newContact => {
+    this.setState(prev => {
+      return { contacts: [...prev.contacts, newContact] };
+    });
+  };
+
+  changeFilter = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  };
-
-  addContact = e => {
-    e.preventDefault();
-    const { name, number } = this.state;
-    const newContact = { name, number, id: uuidv4() };
-
-    this.setState(prev => ({ contacts: [...prev.contacts, newContact] }));
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({ name: '', number: '' });
   };
 
   filterContacts = () => {
@@ -47,20 +38,15 @@ export class App extends Component {
   };
 
   render() {
-    const { name, number, filter } = this.state;
+    const { filter } = this.state;
 
     return (
       <Box p={4}>
         <h1>Phonebook</h1>
-        <Form
-          valueName={name}
-          valueNumber={number}
-          onHandleChange={this.handleChange}
-          onAddContact={this.addContact}
-        />
+        <Form onAddContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter value={filter} onHandleChange={this.handleChange} />
+        <Filter value={filter} onChangeFilter={this.changeFilter} />
         <Contacts contacts={this.filterContacts()} />
         <GlobalStyle />
       </Box>

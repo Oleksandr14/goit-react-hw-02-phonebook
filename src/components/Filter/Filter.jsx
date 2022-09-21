@@ -1,6 +1,6 @@
 import { SpanName, LabelContainer, Input } from './Filter.styled';
 
-export const Filter = ({ value, onHandleChange }) => {
+export const Filter = ({ value, onChangeFilter }) => {
   return (
     <LabelContainer>
       <SpanName>Find contacts by name</SpanName>
@@ -8,7 +8,7 @@ export const Filter = ({ value, onHandleChange }) => {
         type="text"
         name="filter"
         value={value}
-        onChange={onHandleChange}
+        onChange={onChangeFilter}
       />
     </LabelContainer>
   );
