@@ -19,7 +19,7 @@ export class Form extends Component {
     const { name, number } = this.state;
     const newContact = { name, number, id: uuidv4() };
     this.reset();
-    if (this.props.onAddContact(newContact, name)) {
+    if (!this.props.onAddContact(newContact, name)) {
       return;
     }
   };

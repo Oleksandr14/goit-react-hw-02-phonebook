@@ -19,7 +19,9 @@ export class App extends Component {
   };
 
   addContact = (newContact, name) => {
-    const namesArray = this.state.contacts.map(contact => contact.name);
+    const namesArray = this.state.contacts.map(contact =>
+      contact.name.toLowerCase()
+    );
 
     if (namesArray.includes(name)) {
       return alert(`${name} is already in contacts`);
@@ -49,8 +51,6 @@ export class App extends Component {
     const { value } = e.target;
     this.setState({ filter: value });
   };
-
-  // changeFilter = filter => this.setState({ filter });
 
   render() {
     const { filter, contacts } = this.state;
