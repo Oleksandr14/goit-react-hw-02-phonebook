@@ -47,13 +47,12 @@ export class App extends Component {
     );
   };
 
-  changeFilter = e => {
-    const { value } = e.target;
-    this.setState({ filter: value });
+  changeFilter = filter => {
+    this.setState({ filter });
   };
 
   render() {
-    const { filter, contacts } = this.state;
+    const { contacts } = this.state;
 
     return (
       <Box p={4}>
@@ -61,7 +60,7 @@ export class App extends Component {
         <Form onAddContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter filter={filter} onChangeFilter={this.changeFilter} />
+        <Filter onChangeFilter={this.changeFilter} />
         {contacts.length > 0 && (
           <Contacts
             contacts={this.filterContacts()}
