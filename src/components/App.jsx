@@ -18,7 +18,13 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = newContact => {
+  addContact = (newContact, name) => {
+    const namesArray = this.state.contacts.map(contact => contact.name);
+
+    if (namesArray.includes(name)) {
+      return alert(`${name} is already in contacts`);
+    }
+
     this.setState(prev => {
       return { contacts: [...prev.contacts, newContact] };
     });
@@ -40,25 +46,28 @@ export class App extends Component {
   };
 
   changeFilter = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const { value } = e.target;
+    this.setState({ filter: value });
   };
 
+  // changeFilter = filter => this.setState({ filter });
+
   render() {
-    const { filter } = this.state;
-    const namesArray = this.state.contacts.map(contact => contact.name);
+    const { filter, contacts } = this.state;
 
     return (
       <Box p={4}>
         <h1>Phonebook</h1>
-        <Form onAddContact={this.addContact} namesArray={namesArray} />
+        <Form onAddContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter value={filter} onChangeFilter={this.changeFilter} />
-        <Contacts
-          contacts={this.filterContacts()}
-          onDeleteContact={this.deleteContact}
-        />
+        <Filter filter={filter} onChangeFilter={this.changeFilter} />
+        {contacts.length > 0 && (
+          <Contacts
+            contacts={this.filterContacts()}
+            onDeleteContact={this.deleteContact}
+          />
+        )}
         <GlobalStyle />
       </Box>
     );
