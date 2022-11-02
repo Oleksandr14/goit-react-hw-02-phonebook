@@ -1,6 +1,12 @@
+import { Field, Form, ErrorMessage } from 'formik';
+
 import styled from 'styled-components';
 
-export const FormContainer = styled.form`
+export const Error = styled(ErrorMessage)`
+  color: red;
+`;
+
+export const FormContainer = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: ${p => p.theme.space[4]}px;
@@ -14,7 +20,7 @@ export const FormContainer = styled.form`
   border: ${p => p.theme.borders.normal} ${p => p.theme.colors.primary};
 `;
 
-export const Input = styled.input`
+export const Input = styled(Field)`
   margin-top: ${p => p.theme.space[3]}px;
   padding: ${p => p.theme.space[2]}px;
   border: 1px solid gray;

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { Box } from './Box';
 
-import { Form } from './Form/Form';
+import { Forma } from './Form/Form';
 import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 
@@ -55,7 +55,7 @@ export class App extends Component {
     return (
       <Box p={4}>
         <h1>Phonebook</h1>
-        <Form onAddContact={this.addContact} />
+        <Forma onAddContact={this.addContact} />
 
         <h2>Contacts</h2>
         <Filter onChangeFilter={this.changeFilter} />
